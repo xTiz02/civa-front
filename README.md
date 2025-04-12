@@ -1,54 +1,62 @@
-# React + TypeScript + Vite
+# 🚍 CIVA Buses - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es la interfaz de usuario del sistema de gestión de buses CIVA, desarrollado con **React**.  
+Se comunica con el backend mediante peticiones HTTP protegidas por **JWT** y gestiona la autenticación del usuario, control de roles, y funcionalidades como paginación y manejo de errores.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔐 Autenticación y Seguridad
 
-## Expanding the ESLint configuration
+- El frontend utiliza **tokens JWT** para autenticarse con el backend.
+- Los tokens se almacenan en `localStorage` y se envían automáticamente en cada solicitud autenticada.
+- Si el token de acceso expira, el sistema intenta **refrescar el token** con el refresh token.
+- Si el refresh token también ha expirado, se **cierra la sesión automáticamente**.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 👤 Roles y Autorización
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+El sistema reconoce los siguientes **roles**:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- `buses_view_list`: puede acceder al listado de buses.
+- `buses_view_detail`: puede ver el detalle de un bus específico.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+Los componentes están protegidos usando un **contexto de autenticación**, y el enrutamiento se gestiona con `React Router`.
+
+---
+
+## 🔁 Manejo de Tokens
+
+- **Token de acceso**: válido por 3 minutos.
+- **Refresh token**: válido por 5 minutos.
+
+Si ocurre un error de autenticación, el sistema automáticamente intenta refrescar el token y reintenta la petición original.
+
+---
+
+## 📄 Paginación
+
+El listado de buses implementa **paginación por servidor**.  
+Los parámetros de página (`page`) y cantidad por página (`size`) son enviados en cada petición para mostrar los datos en secciones más manejables.
+
+---
+
+## ⚠️ Manejo de Errores
+
+- Se capturan errores HTTP y de red en cada llamada a la API.
+- Mensajes de error personalizados son mostrados al usuario cuando:
+  - No hay conexión al servidor.
+  - El usuario no tiene permisos.
+  - El token ha expirado.
+
+---
+
+## 🧰 Tecnologías Usadas
+
+- React con Vite
+- TypeScript
+- React Router DOM
+- Tailwind CSS
+- Context API (para autenticación)
+- Fetch API (para llamadas HTTP)
+
