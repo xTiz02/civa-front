@@ -31,8 +31,8 @@ export const config = {
 
 El sistema reconoce los siguientes **roles**:
 
-- `buses_view_list`: puede acceder al listado de buses.
-- `buses_view_detail`: puede ver el detalle de un bus específico.
+- `buses_view_all`: puede acceder al listado de buses.
+- `bus_view_detail`: puede ver el detalle de un bus específico.
 
 Los componentes están protegidos usando un **contexto de autenticación**, y el enrutamiento se gestiona con `React Router`.
 
