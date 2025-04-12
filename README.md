@@ -1,9 +1,22 @@
 # 🚍 CIVA Buses - Frontend
 
-Este proyecto es la interfaz de usuario del sistema de gestión de buses CIVA, desarrollado con **React**.  
+Resolución del reto técnico de la empresa CIVA, desarrollado con **React**.  
 Se comunica con el backend mediante peticiones HTTP protegidas por **JWT** y gestiona la autenticación del usuario, control de roles, y funcionalidades como paginación y manejo de errores.
 
----
+## ⚙️ Configuración del Proyecto
+
+### 🔧 environment.ts
+
+```properties
+export const config = {
+    API_URL: "http://localhost:8085",
+    ACCESS_TOKEN_LABEL: "accessToken",
+    REFRESH_TOKEN_LABEL: "refreshToken",
+    USER_LABEL: "user",
+    JWT_EXPIRED_ERROR :"ACCESS_TOKEN_EXPIRED",
+    REFRESH_TOKEN_EXPIRED_ERROR : "REFRESH_TOKEN_EXPIRED"
+}
+```
 
 ## 🔐 Autenticación y Seguridad
 
